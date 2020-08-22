@@ -42,9 +42,14 @@ canvas.addEventListener("click", function (event) {
 		time: Date.now()
 	});
 
-	gameLoop(event);
+	// gameLoop(event);
 });
-button.addEventListener("click", undoGame);
+button.addEventListener("click", function(e) {
+	socket.emit('undo_game', {
+		e,
+		time: Date.now()
+	});
+});
 
 initialiseMatrix();
 initialise();

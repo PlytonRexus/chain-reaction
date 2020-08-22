@@ -66,3 +66,8 @@ socket.on('notify_loop', ({ e, time, username, canvas }) => {
 
     gameLoop(newEvent);
 });
+
+socket.on('notify_undo', function({ e, time }) {
+    undoGame(e);
+    console.log(time);
+});

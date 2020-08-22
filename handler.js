@@ -14,9 +14,10 @@ const io = require('socket.io')(server);
  * 1. welcome (upon receiving `join` event)
  * 2. next_turn (upon receiving `turn_played` event)
  * 3. redraw_matrix (for miscellaneous occurences)
- * 4. notify_left (upon receiving `disconnect event`)
+ * 4. notify_left (upon receiving `disconnect` event)
  * 5. notify_join (upon receiving `join`)
- * 6. notify_loop(upon receiving `game_loop`)
+ * 6. notify_loop (upon receiving `game_loop`)
+ * 7. notify_undo (upon receiving `undo`)
  * 
  * Client emitted events:
  * 1. connection
@@ -92,13 +93,18 @@ function handleConnect(socket) {
         // listen for game loop
         socket.on('game_loop', async function({ e, time, canvas }) {
             // send event data to others
-
-            socket
-            .to(currentRoom)
+            io
+            .in(currentRoom)
             .emit('notify_loop', { 
                 e, 
                 time, 
                 username
+            });
+        });
+
+        socket.on('undo_game', function({ e, time }) {
+            io.in(currentRoom).emit('notify_undo', {
+                e, time
             });
         });
         
