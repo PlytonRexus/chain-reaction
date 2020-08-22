@@ -1,0 +1,30 @@
+{
+  "name": "chain-reaction-server",
+  "version": "0.0.1",
+  "description": "A server to enable mutiplayer gameplay of the web-based chain reaction",
+  "main": "server.js",
+  "scripts": {
+    "test": "node test.js",
+    "start": "node server.js",
+    "dev": "./node_modules/.bin/env-cmd nodemon server.js"
+  },
+  "keywords": [
+    "chain",
+    "reaction",
+    "socketio",
+    "web",
+    "game"
+  ],
+  "author": "Mihir Jichkar",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.0",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "mocha": "^8.1.1",
+    "nodemon": "^2.0.4"
+  }
+}

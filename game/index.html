@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Chain Reaction Room</title>
+
+    <style>
+        body {
+            background: rgb(41, 41, 38);
+            display: flex;
+            min-height: 95vh;
+            justify-content: center;
+            align-content: center;
+        }
+        form {
+            width: 80vw;
+            display: flex;
+            padding: 20px;
+            border: 2px solid rgb(211, 173, 76);
+            margin: 2px auto;
+            flex-flow: column;
+            justify-content: center;
+            align-content: center;
+            border-radius: 20px;
+        }
+        input, button {
+            width: 60%;
+            padding: 10px;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            border: 1px solid rgb(211, 173, 76);
+            background: rgba(211, 173, 76, 0);
+            font-size: 15px;
+            color: white;
+        }
+        input:focus {
+            background:rgb(211, 173, 76);
+            color: black;
+        }
+        button {
+            border: 2px solid rgb(211, 173, 76);
+            color: white;
+            width: 62%;
+        }
+        button:hover {
+            background:rgb(211, 173, 76);
+            color: black;
+        }
+        div {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            padding: 10px;
+        }
+        h1 {
+            font-family: monospace;
+            color: rgb(211, 173, 76);
+        }
+    </style>
+</head>
+<body>
+    <div class="form-wrap">
+        <form id="room-selector">
+            <div id="heading">
+                <h1>Join Room!</h1>
+            </div>
+            <div>
+                <input type="text" name="room" placeholder="Room" required/>
+            </div>
+            <div>
+                <input type="text" name="username" placeholder="Username" required/>
+            </div>
+            <div>
+                <button type="submit"> Play! </button>
+            </div>
+        </form>
+    </div>
+    <script>
+        let form = document.querySelector("#room-selector");
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            localStorage.setItem('chrct-currentRoom', btoa(event.target['room'].value));
+            localStorage.setItem('chrct-username', 
+                btoa(event.target['username'].value));
+            window.location = `/play`;
+        });
+    </script>
+    
+</body>
+</html>
