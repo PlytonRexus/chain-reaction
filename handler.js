@@ -35,7 +35,7 @@ function usrObject(id, currentRoom, username) {
     }
 }
 
-function cacheValues(id, currentRoom, username) {
+function cacheValues(id, currentRoom, username, playerNumber, mode) {
     let idx = now.findIndex(val => val.id === id);
 
     if (idx) {
@@ -59,20 +59,14 @@ function getCachedValues(obj) {
 
 function handleConnect(socket) {
     // listen for join event
-    socket.on('join', function({ currentRoom, username }) {
+    socket.on('join', function({ currentRoom, username, playerNumber, mode }) {
 
-        ////////////////////////////
-        //       Join Room        //
-        ////////////////////////////
         // join the specified room
         socket.join(currentRoom);
 
         // cache user values
-        cacheValues(socket.id, currentRoom, username);
+        cacheValues(socket.id, currentRoom, username, playerNumber, mode);
 
-        ////////////////////////////
-        //    Notify New Member   //
-        ////////////////////////////
         // tell others someone has joined.
         socket
         .to(currentRoom)
@@ -80,37 +74,69 @@ function handleConnect(socket) {
             `notify_join`, 
             `${username} just joined the room.`
         );
-        
-        ////////////////////////////
-        //   Welcome New Member   //
-        ////////////////////////////
-        // welcome the new entrant
-        socket.emit('welcome', `Welcome to ${currentRoom}, ${username}.`);
 
-        ////////////////////////////
-        //       Game Loop        //
-        ////////////////////////////
+        socket.emit(
+            'welcome', 
+            `Welcome to ${currentRoom}, ${username}.`,
+            { playerNumber, mode }
+        );
+
+        socket.on("send_state", function ({ gameState }) {
+            // welcome the new entrant and send state
+        });
+
         // listen for game loop
-        socket.on('game_loop', async function({ e, time, canvas }) {
+        socket.on('send_game_loop', async function({ gameState, time, status }) {
             // send event data to others
             io
             .in(currentRoom)
             .emit('notify_loop', { 
-                e, 
+                gameState, 
+                time, 
+                username,
+                status
+            });
+        });
+
+        // reset
+        socket.on('send_game_reset', async function({ time }) {
+            // send event data to others
+            io
+            .in(currentRoom)
+            .emit('notify_reset', { 
                 time, 
                 username
             });
         });
 
-        socket.on('undo_game', function({ e, time }) {
+        // undo
+        socket.on('send_undo_game', function({ e, time }) {
             io.in(currentRoom).emit('notify_undo', {
                 e, time
             });
         });
+
+        // Sync request
+        socket.on("send_sync_request", function ({ username:requester }) {
+            let sid = socket.id;
+            socket
+            .to(currentRoom)
+            .emit("notify_sync_request");
+
+            socket.on("send_sync_state", function ({ gameState }) {
+                socket.emit('notify_sync', {
+                    gameState
+                });
+            });
+        });
+
+        /* Chat */
+        socket.on('send_message', function({ message, time, username }) {
+            io.in(currentRoom).emit('notify_message', {
+                message, time, username
+            });
+        });
         
-        ////////////////////////////
-        //       Disconnect       //
-        ////////////////////////////
         // listen for `disconnect`
         socket.on('disconnect', function() {
             // tell others someone left

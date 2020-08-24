@@ -13,24 +13,19 @@ const server = app.listen(port, function() {
 	console.log("Chain Reaction server active at port: " + port + ".");
 });
 
-// mongoose.connect(mongoURL, { useUnifiedTopology: true, useNewUrlParser: true });
-// var db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', () => console.log(`Connected to database at ${mongoURL}.`));
-
 exports.server = server; // export server for socket handler
 
 app.use(express.json()); // allow receiving json data
 app.use(express.urlencoded({ extended: true })); // allow receiving urlencoded data
 
-app.use('/', express.static('./game'));
+app.use('/', express.static('./ta'));
 
 app.get('/', function(req, res) {
-	res.sendFile(path.join(__dirname, 'game', 'index.html'));
+	res.sendFile(path.join(__dirname, 'ta', 'index.html'));
 });
 
 app.get('/play', function(req, res) {
-	res.sendFile(path.join(__dirname, 'game', 'play.html'));
+	res.sendFile(path.join(__dirname, 'ta', 'play.html'));
 });
 
 require('./handler').io; // start socket.io

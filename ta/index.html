@@ -57,15 +57,38 @@
             background:rgb(211, 173, 76);
             color: black;
         }
+        select {
+            border: 2px solid rgb(211, 173, 76);
+            color: grey;
+            padding: 10px;
+            width: 62%;
+            outline: none;
+            background-color: rgba(0, 0, 0, 0);
+            text-align: center;
+        }
+        select:hover, select:active {
+            background:rgb(211, 173, 76);
+            color: black;
+        }
         div {
             display: flex;
             justify-content: center;
             align-content: center;
             padding: 10px;
         }
-        h1 {
+        h1, h4 {
             font-family: monospace;
             color: rgb(211, 173, 76);
+            text-align: center;
+            padding: 0;
+            margin: 3px;
+        }
+        #players {
+            padding: 0;
+            margin: 0
+        }
+        option {
+            text-align: center;
         }
     </style>
 </head>
@@ -81,18 +104,33 @@
             <div>
                 <input type="text" name="username" placeholder="Type in a Username" required/>
             </div>
+                <!-- <h4>Mode</h4> -->
+            <div>
+                <select name="mode">
+                    <option value="graphical">Graphical (Can work on most devices)</option>
+                    <option value="numeric">Numeric (For extremely low-resource systems)</option>
+                </select>
+            </div>
+            <h4>Number Of Players (Min: 2, Max: 12) </h4>
+            <div>
+                <input type="range" id="players" name="players" min="2" max="12" value="2" />
+            </div>
             <div>
                 <button type="submit"> Play! </button>
             </div>
         </form>
     </div>
     <script>
+        function swrite(key, value) {
+            sessionStorage.setItem(key, btoa(value));
+        }
         let form = document.querySelector("#room-selector");
         form.addEventListener('submit', function(event) {
             event.preventDefault();
-            localStorage.setItem('chrct-currentRoom', btoa(event.target['room'].value));
-            localStorage.setItem('chrct-username', 
-                btoa(event.target['username'].value));
+            swrite('chrct-currentRoom', event.target['room'].value);
+            swrite('chrct-username', event.target['username'].value);
+            swrite('chrct-players', event.target['players'].value);
+            swrite('chrct-mode', event.target['mode'].value);
             window.location = `/play`;
         });
     </script>
