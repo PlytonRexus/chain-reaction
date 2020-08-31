@@ -4,8 +4,8 @@
   "description": "A server to enable mutiplayer gameplay of the web-based chain reaction",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "./node_modules/.bin/env-cmd nodemon server.js"
+    "start": "node src/server.js",
+    "dev": "./node_modules/.bin/env-cmd nodemon src/server.js"
   },
   "keywords": [
     "chain",
