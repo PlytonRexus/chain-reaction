@@ -1,0 +1,18 @@
+/* `noscript` related */
+body:before{
+    color: white;
+    font-family: sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+
+    width: 100%;
+    padding: 1em 0;
+
+    background: rgba(0,0,0,0.9);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+}

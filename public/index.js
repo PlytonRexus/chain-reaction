@@ -155,7 +155,10 @@ function drawGrid(rows, columns, populateFrom, firstTime, graphical) {
                         "data-col": i
                     }, null, { 
                         innerHTML: firstTime ? 
-                            (graphical ? "" : "<span></span>") : populateFrom[j][i].amount
+                            (graphical ? 
+                                "" : 
+                                `<span data-col="${i}" data-row="${j}"></span>`) 
+                            : populateFrom[j][i].amount
                     })]
 				)
 			);
@@ -404,6 +407,8 @@ function explode(row, column, pos) {
     gameState.status[row][column].amount = 0;
     act(row, column, 0);
 
+    $("#audio-player").play();
+
     if (gameState.status[row][column - 1] !== undefined) {
         testAndAct(row, column-1);
     }
@@ -596,8 +601,10 @@ function createAndLoadElements() {
         class: "container chatbox",
         id: "chatbox"
     }, null, null, [
-        ce('div', { id: "chat-list-wrap" }, null, null, [ce('ul', { id: "chat-list" })]),
-        ce('div', { id: "chat-input-wrap" }, null, null, [ce('input', { id: "chat-input" })])
+        ce('div', { id: "chat-list-wrap" }, null, null, 
+            [ce('ul', { id: "chat-list" })]),
+        ce('div', { id: "chat-input-wrap" }, null, null, 
+            [ce('input', { id: "chat-input" })])
     ]);
 }
 

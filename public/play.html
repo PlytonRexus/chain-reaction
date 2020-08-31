@@ -1,0 +1,26 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CR2.0!</title>
+	<link rel="stylesheet" href="index.css">
+</head>
+<body>
+	<noscript>
+		<link rel="stylesheet" type="text/css" href="noscript.css" />
+		<h2>Nah! This won't do. </h2> <br/>
+		JavaScript powers this app. You'll have to switch it on to play this game.
+		If you didn't turn your JavaScript off an still you see this message, check <a href="https://www.enable-javascript.com/">here</a>.
+	</noscript>
+	<div id="root"></div>
+	<audio id="audio-player">
+        <source src="explosion.mp3" type="audio/mp3" id="audio-source">
+        Your browser does not support the audio.
+    </audio>
+
+	<script src="lib/socket.io.slim.js"></script>
+	<script src="io.js"></script>
+	<script src="index.js"></script>
+	<script src="chat.js"></script>
+</body>
+</html>
