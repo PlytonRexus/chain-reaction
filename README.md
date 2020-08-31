@@ -1,4 +1,4 @@
-# Chain Reaction(Multiplayer)
+# Chain Reaction (Multiplayer)
 
 *A single screen version can be found [here](https://github.com/PlytonRexus/chain-reaction-single).*
 
