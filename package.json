@@ -4,7 +4,6 @@
   "description": "A server to enable mutiplayer gameplay of the web-based chain reaction",
   "main": "server.js",
   "scripts": {
-    "test": "node test.js",
     "start": "node server.js",
     "dev": "./node_modules/.bin/env-cmd nodemon server.js"
   },
@@ -24,7 +23,6 @@
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",
-    "mocha": "^8.1.1",
     "nodemon": "^2.0.4"
   }
 }
