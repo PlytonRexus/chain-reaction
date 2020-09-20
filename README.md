@@ -1,6 +1,9 @@
 # Chain Reaction (Multiplayer)
 
-*A single screen version can be found [here](https://github.com/PlytonRexus/chain-reaction-single).*
+This is Online version of the famous mobile game "Chain Reaction"!
+Hope you guys try it..!!
+
+*A single screen version can be found [here](https://github.com/PlytonRexus/chain-reaction-single) (Link not working currently).*
 
 For debugging use:
 ```sh
