@@ -1,7 +1,8 @@
 # Chain Reaction (Multiplayer)
 
-This is Online version of the famous mobile game "Chain Reaction"!
+This is **Online version** of the famous mobile game "Chain Reaction"!
 Hope you guys try it..!!
+by Mihir Jichkar
 
 *A single screen version can be found [here](https://github.com/PlytonRexus/chain-reaction-single) (Link not working currently).*
 
