@@ -632,7 +632,7 @@ function loadGrid() {
 function resetState() {
     gameState.status = [];
     gameState.turns = 0;
-    gameState.statusHistory = 0;
+    gameState.statusHistory = [];
     gameState.undoAllowed = false;
     gameState.currentPlayer = 0;
     gameState.previousStatus = [];
