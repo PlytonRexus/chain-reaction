@@ -213,7 +213,7 @@ function checkAndPlay(event) {
 
         turnUtils(gameState.turns);
     }
-    // toggleUndo("enable");
+    toggleUndo("enable");
 }
 
 function turnUtils(turns) {
@@ -482,27 +482,37 @@ function toggleUndo(state) {
 function storeCurrentGrid() {
     let grid = $("#grid");
     gameState.grid = grid;
-    previousStatus = gameState.status;
+    // previousStatus = gameState.status;
     gameState.statusHistory[gameState.statusHistory.length] = (gameState.status);
+    if(gameState.statusHistory.length -2>-1)
+    previousStatus = gameState.statusHistory[gameState.statusHistory.length -2] 
+    // console.log("gameState.prvious: ",gameState)
 }
 
 function rewind() {
     let gridWrap = $("#grid-wrap");
     let shty = gameState.statusHistory;
-
+    // console.log("gameState.previous: ",previousStatus);
     let newGrid = drawGrid(
-        gameState.rows, 
+        gameState.rows,
         gameState.columns,
         previousStatus
     );
+    
 
-    console.log(newGrid);
-
+    //console.log("inside rewind");
+    gameState.status = previousStatus;
     gridWrap.removeChild(gridWrap.childNodes[0]);
     gridWrap.appendChild(newGrid);
+    populateCells(previousStatus)
+    gameState.turns = gameState.turns -1;
+    switchTurn()
+    turnUtils()
 
     gameState.statusHistory = shty.slice(0, shty.length - 1);
+    // console.log("gameState.statusHistory: ",gameState.statusHistory.length)
 }
+
 
 function init() {
     /* Elements */
@@ -548,11 +558,11 @@ function createAndLoadElements() {
     elements.undoButton = ce('button', {
         class: "button settings-button",
         id: "undo-button",
-        disabled: "true"
+        // disabled: "true"
     }, null, {
         innerHTML: "Undo",
         onclick: function() {
-            toggleUndo("disable");
+            toggleUndo("enable");
             rewind();
         }
     });
