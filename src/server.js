@@ -17,7 +17,7 @@ exports.server = server; // export server for socket handler
 app.use(express.json()); // allow receiving json data
 app.use(express.urlencoded({ extended: true })); // allow receiving urlencoded data
 
-app.use('/', express.static('./public'));
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
 	res.sendFile(path.join(__dirname, 'public', 'index.html'));
